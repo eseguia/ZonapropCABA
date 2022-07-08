@@ -24,16 +24,17 @@ GROUP BY l3
 HAVING AVG(price) IS NOT NULL 
 ORDER BY AVGprice;
 
--- Seeing the average price of RENTING a living property in each CABA neighborhood -- H5
+-- Seeing the average price of RENTING an apartment in each CABA neighborhood -- H5
 
-SELECT l3, AVG(price) AS AVGprice, COUNT(l3) AS count, AVG(surface_total) AS surface
+SELECT AVG(lat),AVG(lon), l3, AVG(price) AS AVGprice, COUNT(price) AS countApartments--, AVG(surface_total) AS surface
 FROM zonaprop_data
 WHERE operation_type = 'Alquiler' 
 AND l3 IS NOT NULL 
-AND property_type LIKE('Departamento') OR property_type LIKE('PH') OR property_type LIKE('Casa') 
+AND property_type LIKE('Departamento') --OR property_type LIKE('Casa') OR property_type LIKE('PH')-- 
+AND price < 10000 AND price > 0
 GROUP BY l3
 HAVING AVG(price) IS NOT NULL 
-ORDER BY AVGprice;
+ORDER BY AVGprice DESC;
 
 
 -- Seeing the average price of RENTING a FLAT in each CABA neighborhood -- H6?
