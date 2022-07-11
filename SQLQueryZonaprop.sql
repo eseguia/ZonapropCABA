@@ -95,3 +95,23 @@ GROUP BY l3
 HAVING AVG(price) IS NOT NULL AND COUNT(l3) >10
 ORDER BY AVGprice DESC;
 
+-- Seeing Comercial properties in each neighbourhood ordered by price per sqMeter -- C2
+
+SELECT l3, AVG(price)/AVG(surface_total) AS AVGpricePerSqMeter, COUNT(l3) AS quantity, AVG(price) AS price, AVG(surface_total) AS surface
+FROM zonaprop_data
+WHERE operation_type = 'Venta' 
+AND l3 IS NOT NULL 
+AND property_type NOT IN ('Departamento','PH','Casa')
+GROUP BY l3
+HAVING AVG(price) IS NOT NULL 
+ORDER BY AVGpricePerSqMeter DESC;
+
+-- Comercial Property Type Quantities -- C3
+
+SELECT property_type, COUNT(property_type) AS Quantity
+FROM zonaprop_data
+WHERE l3 IS NOT NULL 
+AND property_type NOT IN ('Departamento','PH','Casa')
+GROUP BY property_type
+ORDER BY Quantity DESC
+
