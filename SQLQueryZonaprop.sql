@@ -95,7 +95,7 @@ GROUP BY l3
 HAVING AVG(price) IS NOT NULL AND COUNT(l3) >10
 ORDER BY AVGprice DESC;
 
--- Seeing Comercial properties in each neighbourhood ordered by price per sqMeter -- C2
+-- Seeing Commercial properties in each neighbourhood ordered by price per sqMeter -- C2
 
 SELECT l3, AVG(price)/AVG(surface_total) AS AVGpricePerSqMeter, COUNT(l3) AS quantity, AVG(price) AS price, AVG(surface_total) AS surface
 FROM zonaprop_data
@@ -106,7 +106,7 @@ GROUP BY l3
 HAVING AVG(price) IS NOT NULL 
 ORDER BY AVGpricePerSqMeter DESC;
 
--- Comercial Property Type Quantities -- C3
+-- Commercial Property Type Quantities -- C3
 
 SELECT property_type, COUNT(property_type) AS Quantity
 FROM zonaprop_data
@@ -115,3 +115,19 @@ AND property_type NOT IN ('Departamento','PH','Casa')
 GROUP BY property_type
 ORDER BY Quantity DESC
 
+-- Adding Column to Table to Differentiate between Commercial and Living Properties
+
+ALTER TABLE zonaprop_data
+	ADD com_liv VARCHAR(20) NULL
+
+UPDATE zonaprop_data SET
+	com_liv = (CASE WHEN property_type IN ('Departamento','PH','Casa') THEN 'Living' ELSE 'Commercial' END)
+
+
+-- Commercial vs Living Properties Offer in each neighbourhood
+
+SELECT l3, com_liv, COUNT(*) AS Quantity
+FROM zonaprop_data
+WHERE l3 IS NOT NULL 
+GROUP BY l3, com_liv
+ORDER BY l3, Quantity DESC
