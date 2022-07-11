@@ -9,6 +9,6 @@
 ### Tableau Dashboard
 https://public.tableau.com/app/profile/emilio.eguia/viz/ZonapropHousing/Dashboard1?publish=yes
 
-Preview of Tableau Dashboard:
+Preview of Tableau Dashboard for Living Properties:
 
 ![ZonapropHTableauDashboard](https://user-images.githubusercontent.com/69361704/178059398-d4766f81-f589-4b82-9f94-3c2adcfe9da9.PNG)
